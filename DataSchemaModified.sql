@@ -12,23 +12,23 @@ DROP TABLE IF EXISTS material_access CASCADE;
 -- Create student table
 CREATE TABLE student (
     student_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
+    student_name VARCHAR(50) NOT NULL,
     student_group VARCHAR(50) NOT NULL
 );
 
 -- Create organizer table
 CREATE TABLE organizer (
     organizer_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    role VARCHAR(50) NOT NULL
+    organizer_name VARCHAR(50) NOT NULL,
+    organizer_role VARCHAR(50) NOT NULL
 );
 
 -- Create dance_event table
 CREATE TABLE dance_event (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    event_name VARCHAR(100) NOT NULL,
     event_date DATE NOT NULL,
-    location VARCHAR(100) NOT NULL,
+    event_location VARCHAR(100) NOT NULL,
     organizer_id INT NOT NULL,
     FOREIGN KEY (organizer_id) REFERENCES organizer (organizer_id)
 );
@@ -37,7 +37,7 @@ CREATE TABLE dance_event (
 CREATE TABLE chat_group (
     chat_id INT AUTO_INCREMENT PRIMARY KEY,
     chat_name VARCHAR(100) NOT NULL,
-    topic VARCHAR(100),
+    chat_topic VARCHAR(100),
     organizer_id INT NOT NULL,
     FOREIGN KEY (organizer_id) REFERENCES organizer (organizer_id)
 );
@@ -81,12 +81,3 @@ CREATE TABLE material_access (
     FOREIGN KEY (student_id) REFERENCES student (student_id),
     FOREIGN KEY (material_id) REFERENCES study_material (material_id)
 );
-
--- Add relationships between software_system and other tables
-ALTER TABLE chat_group
-    ADD COLUMN system_id INT,
-    ADD FOREIGN KEY (system_id) REFERENCES software_system (system_id);
-
-ALTER TABLE study_material
-    ADD COLUMN system_id INT,
-    ADD FOREIGN KEY (system_id) REFERENCES software_system (system_id);
